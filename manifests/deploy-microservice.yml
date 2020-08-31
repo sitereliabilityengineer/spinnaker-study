@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: solo-koldo-microservice
+        app: koldo-solo-microservice
         stack: frontend
         source: demo
-    name: solo-koldo-microservice
+    name: koldo-solo-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: solo-koldo-microservice
+            run: koldo-solo-microservice
     template:
         metadata:
             labels:
-                app: solo-koldo-microservice
-                run: solo-koldo-microservice
+                app: koldo-solo-microservice
+                run: koldo-solo-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/solo-koldo-microservice
-                    name: solo-koldo-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/koldo-solo-microservice
+                    name: koldo-solo-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: solo-koldo-microservice-service
-    name: solo-koldo-microservice-service
+        app: koldo-solo-microservice-service
+    name: koldo-solo-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: solo-koldo-microservice
+        app: koldo-solo-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,15 +51,15 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: solo-koldo-ingress
+    name: koldo-solo-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /solo-koldo(/|$)(.*)
+                    -   path: /koldo-solo(/|$)(.*)
                         backend:
-                            serviceName: solo-koldo-microservice-service
+                            serviceName: koldo-solo-microservice-service
                             servicePort: 30201
 
 
